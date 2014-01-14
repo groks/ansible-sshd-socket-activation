@@ -1,7 +1,7 @@
 sshd-socket-activation
 ========
 
-An [ansible role](https://galaxy.ansibleworks.com/) to enable
+An [ansible role](https://galaxy.ansibleworks.com/list#/roles/218) to enable
 [socket-activation](http://0pointer.de/blog/projects/socket-activation.html) of
 the SSH server. Port 22 (or whatever) will be listening, but the SSH server will
 not start until a client connects, speeding boot time and reducing memory used.
