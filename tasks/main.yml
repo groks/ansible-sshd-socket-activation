@@ -1,0 +1,45 @@
+---
+
+- name: sshd is installed
+  yum: name=openssh-server state=present
+
+- name: socket for sshd service
+  copy:
+    dest: /etc/systemd/system/sshd.socket
+    mode: 0644
+    owner: root
+    group: root
+    content: |
+      [Unit]
+      Description=SSH Socket for Per-Connection Servers
+      
+      [Socket]
+      ListenStream=22
+      Accept=yes
+      
+      [Install]
+      WantedBy=sockets.target
+  notify:
+    - systemd daemon-reload
+
+- name: socket-activated sshd service
+  copy:
+    dest: /etc/systemd/system/sshd@.service
+    mode: 0644
+    owner: root
+    group: root
+    content: |
+      [Unit]
+      Description=SSH Per-Connection Server for %I
+      
+      [Service]
+      ExecStart=-/usr/sbin/sshd -i
+      StandardInput=socket
+  notify:
+    - systemd daemon-reload
+
+- name: deactivate ssh daemon mode
+  service: name=sshd enabled=no
+
+- name: activate sshd socket
+  service: name=sshd.socket enabled=yes

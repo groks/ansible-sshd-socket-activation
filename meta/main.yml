@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: groks
+  description: enable socket-activation of the SSH server for faster boot and less memory
+  license: BSD
+  min_ansible_version: 1.3
+
+  platforms:
+    - name: Fedora
+      versions:
+        - 18
+        - 19
+        - 20
+
+  categories:
+    - system
+    - networking
+
+dependencies: []
